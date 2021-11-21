@@ -1,6 +1,7 @@
 package com.charlie.eduservice.controller;
 
 
+import com.charlie.commonutils.R;
 import com.charlie.eduservice.entity.EduTeacher;
 import com.charlie.eduservice.service.EduTeacherService;
 import io.swagger.annotations.Api;
@@ -34,17 +35,26 @@ public class EduTeacherController {
     // rest风格
     @GetMapping("findAll")
     @ApiOperation(value = "所有讲师列表")
-    public List<EduTeacher> findAllTeacher() throws Exception {
+    public R findAllTeacher() throws Exception {
 
         List<EduTeacher> list = eduTeacherService.list(null);
-        return list;
+        return R.ok().data("items",list);
     }
 
     //逻辑删除讲师
     @DeleteMapping("{id}")
     @ApiOperation(value = "根据ID删除讲师")
-    public boolean deleteTeacherById(@ApiParam(name = "id", value = "讲师ID",required = true)@PathVariable String id){
-        return eduTeacherService.removeById(id);
+    public R removeById(
+            @ApiParam(name = "id",value = "讲师ID",required = true)
+            @PathVariable String id
+    ){
+        boolean flag = eduTeacherService.removeById(id);
+//        if(flag){
+//            return R.ok();
+//        }else {
+//            return R.error();
+//        }
+        return flag == true ? R.ok() : R.error();
     }
 
 }
