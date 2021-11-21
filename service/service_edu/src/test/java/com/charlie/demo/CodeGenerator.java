@@ -26,7 +26,8 @@ public class CodeGenerator {
         // 2、全局配置
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir");
-        gc.setOutputDir(projectPath + "/src/main/java");
+
+        gc.setOutputDir("D:\\JavaWork\\wk_EducationOnline\\guli_parent\\service\\service_edu" + "/src/main/java"); //1 建议使用绝对路径，以防一些其他问题
         gc.setAuthor("testjava");
         gc.setOpen(false); //生成后是否打开资源管理器
         gc.setFileOverride(false); //重新生成时文件是否覆盖
@@ -39,8 +40,8 @@ public class CodeGenerator {
 
         // 3、数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://localhost:3306/guli");
-        dsc.setDriverName("com.mysql.jdbc.Driver");
+        dsc.setUrl("jdbc:mysql://localhost:3306/guli?serverTimezone=GMT%2B8");
+        dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
         dsc.setPassword("1234");
         dsc.setDbType(DbType.MYSQL);
@@ -48,8 +49,12 @@ public class CodeGenerator {
 
         // 4、包配置
         PackageConfig pc = new PackageConfig();
-        pc.setModuleName("edu"); //模块名
-        pc.setParent("com.example.demo");
+
+        // 包 com.charlie.eduservice
+        pc.setParent("com.charlie");
+        pc.setModuleName("eduservice"); //模块名
+
+        // 包 com.charlie.eduservice.*
         pc.setController("controller");
         pc.setEntity("entity");
         pc.setService("service");
