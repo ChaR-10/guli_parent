@@ -4,6 +4,7 @@ package com.charlie.eduservice.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.charlie.commonutils.R;
 import com.charlie.eduservice.entity.EduTeacher;
+import com.charlie.eduservice.entity.vo.TeacherQuery;
 import com.charlie.eduservice.service.EduTeacherService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -74,6 +75,27 @@ public class EduTeacherController {
         //获取总记录数
         long total = pageParam.getTotal();
         return R.ok().data("total",total).data("rows",records);
+    }
+
+    //多条件查询讲师带分页
+    @ApiOperation(value = "多条件查询讲师带分页")
+    @PostMapping("/pageTeacherCondition/{page}/{limit}")
+    public R pageTeacherCondition(@ApiParam(name = "page", value = "当前页码", required = true)@PathVariable Long page,
+                                  @ApiParam(name = "limit", value = "每页记录数", required = true)@PathVariable Long limit,
+                                  @RequestBody(required = false) TeacherQuery teacherQuery){//通过封装TeacherQuery对象来直接传递查询条件
+        //创建分页page对象
+        Page<EduTeacher> pageParam = new Page<>(page, limit);
+
+        //调用方法实现多条件分页查询
+        eduTeacherService.pageQuery(pageParam, teacherQuery);
+
+        //获取查询到的数据
+        List<EduTeacher> records = pageParam.getRecords();
+
+        //获取总记录数
+        long total = pageParam.getTotal();
+        return R.ok().data("total",total).data("rows",records);
+
     }
 
 }
