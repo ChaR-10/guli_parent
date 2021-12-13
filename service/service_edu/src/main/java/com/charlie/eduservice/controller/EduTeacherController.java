@@ -1,6 +1,7 @@
 package com.charlie.eduservice.controller;
 
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.charlie.commonutils.R;
 import com.charlie.eduservice.entity.EduTeacher;
 import com.charlie.eduservice.service.EduTeacherService;
@@ -17,7 +18,7 @@ import java.util.List;
  * 讲师 前端控制器
  * </p>
  *
- * @author testjava
+ * @author ChaR
  * @since 2021-11-21
  */
 @RestController
@@ -55,6 +56,24 @@ public class EduTeacherController {
 //            return R.error();
 //        }
         return flag == true ? R.ok() : R.error();
+    }
+
+    //分页查询
+    //page：当前页
+    //limit：每页显示记录数
+    @ApiOperation(value = "分页讲师列表")
+    @GetMapping("/pageList/{page}/{limit}")
+    public R pageList(@ApiParam(name = "page", value = "当前页码", required = true)@PathVariable Long page,
+                      @ApiParam(name = "limit", value = "每页记录数", required = true)@PathVariable Long limit
+    ){
+        Page<EduTeacher> pageParam = new Page<>(page, limit);
+        //分页查询，查完后，会将数据封装在pageParam中
+        eduTeacherService.page(pageParam,null);
+        //获取查询到的数据
+        List<EduTeacher> records = pageParam.getRecords();
+        //获取总记录数
+        long total = pageParam.getTotal();
+        return R.ok().data("total",total).data("rows",records);
     }
 
 }
