@@ -7,6 +7,7 @@ import com.charlie.eduservice.entity.EduTeacher;
 import com.charlie.eduservice.entity.vo.TeacherQuery;
 import com.charlie.eduservice.service.EduTeacherService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,6 +98,40 @@ public class EduTeacherController {
         return R.ok().data("total",total).data("rows",records);
 
     }
+
+    //新增讲师
+    @ApiModelProperty(value = "新增讲师")
+    @PostMapping("/save")
+    public R save(@RequestBody EduTeacher eduTeacher){
+        boolean flag = eduTeacherService.save(eduTeacher);
+//        if (flag){
+//            return R.ok();
+//        }else {
+//            return R.error();
+//        }
+        return flag ? R.ok() : R.error();
+    }
+
+    //根据id查询,用于信息回显
+    @ApiModelProperty(value = "根据id查询")
+    @GetMapping("/getById/{id}")
+    public R getById(@PathVariable String id){
+        EduTeacher teacher = eduTeacherService.getById(id);
+        return R.ok().data("item",teacher);
+    }
+
+    //修改讲师
+    @ApiModelProperty(value = "修改讲师")
+    @PostMapping("/updateById")
+    public R updateById(@RequestBody EduTeacher teacher){
+        boolean flag = eduTeacherService.updateById(teacher);
+        if (flag){
+            return R.ok();
+        }else {
+            return R.error();
+        }
+    }
+
 
 }
 
