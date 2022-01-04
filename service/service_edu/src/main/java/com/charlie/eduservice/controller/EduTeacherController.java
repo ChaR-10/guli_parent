@@ -6,6 +6,7 @@ import com.charlie.commonutils.R;
 import com.charlie.eduservice.entity.EduTeacher;
 import com.charlie.eduservice.entity.vo.TeacherQuery;
 import com.charlie.eduservice.service.EduTeacherService;
+import com.charlie.servicebase.exceptionHandler.CharException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
@@ -69,6 +70,15 @@ public class EduTeacherController {
                       @ApiParam(name = "limit", value = "每页记录数", required = true)@PathVariable Long limit
     ){
         Page<EduTeacher> pageParam = new Page<>(page, limit);
+
+//        try{
+//            int i = 10/0;
+//        }catch (Exception e){
+//            // 执行自定义异常
+//            throw new CharException(20000,"执行了自定义CharException异常");
+//        }
+
+
         //分页查询，查完后，会将数据封装在pageParam中
         eduTeacherService.page(pageParam,null);
         //获取查询到的数据
