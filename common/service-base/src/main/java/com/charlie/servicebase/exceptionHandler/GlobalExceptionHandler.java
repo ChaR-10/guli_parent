@@ -1,6 +1,7 @@
 package com.charlie.servicebase.exceptionHandler;
 
 import com.charlie.commonutils.R;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @Date: 2022/1/4 23:03
  */
 @ControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
 
     //指定出现什么异常会执行这个方法
@@ -32,7 +34,9 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(CharException.class)
     @ResponseBody
     public R error(CharException e){
-        e.printStackTrace();;
+        log.warn(e.getMessage());
+        e.printStackTrace();
+
         return R.error().message(e.getMsg()).code(e.getCode());
     }
 
