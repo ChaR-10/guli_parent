@@ -7,14 +7,14 @@ import com.charlie.eduservice.entity.EduTeacher;
 import com.charlie.eduservice.entity.vo.TeacherQuery;
 import com.charlie.eduservice.service.EduTeacherService;
 import com.charlie.servicebase.exceptionHandler.CharException;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * <p>
@@ -26,7 +26,8 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/eduservice/teacher")
-@Api(description="讲师管理")
+//@Api(description="讲师管理")
+@Api(tags="讲师管理")
 public class EduTeacherController {
 
     //测试地址：http:localhost:8001/eduservice/teacher/findAll
@@ -142,6 +143,29 @@ public class EduTeacherController {
         }
     }
 
+    @ApiOperation(value = "controller其他写法", produces = "application/json")
+    @ApiModelProperty(value = "修改讲师")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userUid", value = "用户uid"),
+            @ApiImplicitParam(name = "uidArr[]", value = "uid数组"),
+
+    })
+    @RequestMapping(value = "/getListNewDemo", method = RequestMethod.POST) //get 不支持RestBody
+    @Transactional
+    public R getListNewDemo(@RequestParam(required = false) UUID userUid,
+                            @RequestParam(required = false, value = "uidArr[]") UUID[] uidArr,
+                            @RequestBody EduTeacher teacher){
+
+        try{
+            List<EduTeacher> list = eduTeacherService.list(null);
+            return R.ok().data("items",list);
+        }catch (Exception e){
+            e.printStackTrace();
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); // 事务回滚
+            return R.error();
+        }
+
+    }
 
 }
 
