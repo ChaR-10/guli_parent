@@ -28,6 +28,7 @@ import java.util.UUID;
 @RequestMapping("/eduservice/teacher")
 //@Api(description="讲师管理")
 @Api(tags="讲师管理")
+@CrossOrigin
 public class EduTeacherController {
 
     //测试地址：http:localhost:8001/eduservice/teacher/findAll
