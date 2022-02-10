@@ -25,7 +25,7 @@ import java.util.UUID;
  * @since 2021-11-21
  */
 @RestController
-@RequestMapping("/eduservice/teacher")
+@RequestMapping("/eduService/teacher")
 //@Api(description="讲师管理")
 @Api(tags="讲师管理")
 @CrossOrigin

@@ -10,7 +10,7 @@ import com.charlie.eduservice.entity.vo.TeacherQuery;
  * 讲师 服务类
  * </p>
  *
- * @author testjava
+ * @author ChaR
  * @since 2021-11-21
  */
 public interface EduTeacherService extends IService<EduTeacher> {
