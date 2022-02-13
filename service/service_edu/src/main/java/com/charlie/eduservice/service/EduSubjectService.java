@@ -2,7 +2,10 @@ package com.charlie.eduservice.service;
 
 import com.charlie.eduservice.entity.EduSubject;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.charlie.eduservice.entity.vo.OneSubject;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
  * <p>
@@ -20,4 +23,6 @@ public interface EduSubjectService extends IService<EduSubject> {
      * @param eduSubjectService
      */
     void saveSubject(MultipartFile file, EduSubjectService eduSubjectService);
+
+    List<OneSubject> getAllOneTwoSubject();
 }

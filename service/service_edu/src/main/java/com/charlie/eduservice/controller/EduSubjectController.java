@@ -2,15 +2,16 @@ package com.charlie.eduservice.controller;
 
 
 import com.charlie.commonutils.R;
+import com.charlie.eduservice.entity.vo.OneSubject;
 import com.charlie.eduservice.service.EduSubjectService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
  * <p>
@@ -40,6 +41,16 @@ public class EduSubjectController {
 
         return R.ok();
     }
+
+    //课程分类列表（树形）
+    @ApiOperation(value = "嵌套数据列表")
+    @GetMapping("/getAllSubject")
+    public R getAllSubject(){
+        //ist集合泛型是一级分类，一级分类中本身含有二级分类
+        List<OneSubject> list = eduSubjectService.getAllOneTwoSubject();
+        return R.ok().data("list",list);
+    }
+
 
 }
 
