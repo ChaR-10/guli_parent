@@ -31,6 +31,21 @@ public class EduCourseController {
         return R.ok().data("courseId",id);
     }
 
+    //根据课程id查询课程基本信息
+    @GetMapping("/getCourseInfoById/{courseId}")
+    public R getCourseInfoById(@PathVariable String courseId){
+        CourseInfoForm courseInfoForm = eduCourseService.getCourseInfo(courseId);
+        return R.ok().data("courseInfoForm",courseInfoForm);
+    }
+
+    //修改课程信息
+    @PostMapping("/updateCourseInfo")
+    public R updateCourseInfo(@RequestBody CourseInfoForm courseInfoForm){
+        eduCourseService.updateCourseInfo(courseInfoForm);
+        return R.ok();
+    }
+
+
 }
 
 

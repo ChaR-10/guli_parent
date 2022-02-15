@@ -16,4 +16,10 @@ public interface EduCourseService extends IService<EduCourse> {
 
     //添加课程基本信息方法
     String saveCourseInfo(CourseInfoForm courseInfoForm);
+
+    //根据课程id查询课程基本信息
+    CourseInfoForm getCourseInfo(String courseId);
+
+    //修改课程信息
+    void updateCourseInfo(CourseInfoForm courseInfoForm);
 }
