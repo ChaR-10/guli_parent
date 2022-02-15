@@ -1,9 +1,13 @@
 package com.charlie.eduservice.controller;
 
 
-import org.springframework.web.bind.annotation.RequestMapping;
+import com.charlie.commonutils.R;
+import com.charlie.eduservice.entity.vo.ChapterVo;
+import com.charlie.eduservice.service.EduChapterService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
+import java.util.List;
 
 /**
  * <p>
@@ -14,8 +18,21 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2022-02-13
  */
 @RestController
-@RequestMapping("/eduservice/edu-chapter")
+@RequestMapping("/eduService/chapter")
+@CrossOrigin //解决跨域问题
 public class EduChapterController {
 
+    @Autowired
+    private EduChapterService eduChapterService;
+
+    //获取课程大纲列表，根据课程id进行查询
+    @GetMapping("/getChapterVideo/{courseId}")
+    public R getChapterVideo(@PathVariable String courseId){
+        List<ChapterVo> list = eduChapterService.getChapterVideoByCourseId(courseId);
+
+        return R.ok().data("allChapterVideo",list);
+    }
+
 }
+
 
