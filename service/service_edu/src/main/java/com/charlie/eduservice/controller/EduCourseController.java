@@ -2,6 +2,7 @@ package com.charlie.eduservice.controller;
 
 
 import com.charlie.commonutils.R;
+import com.charlie.eduservice.entity.EduCourse;
 import com.charlie.eduservice.entity.vo.CourseInfoForm;
 import com.charlie.eduservice.entity.vo.CoursePublishVo;
 import com.charlie.eduservice.service.EduCourseService;
@@ -62,6 +63,23 @@ public class EduCourseController {
     ){
         CoursePublishVo publishVo = courseService.getPublishCourseInfo(courseId);
         return R.ok().data("publishInfo",publishVo);
+    }
+
+    @ApiOperation("课程最终发布")
+    @PostMapping("publishCourse/{id}")
+    public R publishCourse(
+            @ApiParam(name = "id",value = "课程Id",required = true)
+            @PathVariable() String id
+    ){
+        EduCourse eduCourse = new EduCourse();
+        eduCourse.setId(id);
+        eduCourse.setStatus("Normal");
+        boolean success = courseService.updateById(eduCourse);
+        if(success){
+            return R.ok();
+        }else {
+            return R.error().message("课程发布失败");
+        }
     }
 
 }
