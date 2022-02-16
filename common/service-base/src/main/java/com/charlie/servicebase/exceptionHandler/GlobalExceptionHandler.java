@@ -20,7 +20,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public R error(Exception e){
         e.printStackTrace();
-        return R.error().message("执行了全局异常处理。。。");
+        return R.error().message("全局异常处理："+ e.getMessage());
     }
 
 //    @ExceptionHandler(ArithmeticException.class)

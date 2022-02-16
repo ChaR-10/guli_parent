@@ -73,12 +73,13 @@ public class EduTeacherController {
     ){
         Page<EduTeacher> pageParam = new Page<>(page, limit);
 
-        try{
-            int i = 10/0;
-        }catch (Exception e){
-            // 执行自定义异常
-            throw new CharException(20000,"执行了自定义CharException异常");
-        }
+//        int i = 10/0;
+//        try{
+//            int i = 10/0;
+//        }catch (Exception e){
+//            // 执行自定义异常
+//            throw new CharException(20000,"执行了自定义CharException异常");
+//        }
 
 
         //分页查询，查完后，会将数据封装在pageParam中
