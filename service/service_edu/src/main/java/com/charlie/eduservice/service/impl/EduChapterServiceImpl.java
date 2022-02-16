@@ -9,6 +9,7 @@ import com.charlie.eduservice.mapper.EduChapterMapper;
 import com.charlie.eduservice.service.EduChapterService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.charlie.eduservice.service.EduVideoService;
+import com.charlie.servicebase.exceptionHandler.CharException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,7 +52,7 @@ public class EduChapterServiceImpl extends ServiceImpl<EduChapterMapper, EduChap
 
             //创建章节vo对象
             ChapterVo chapterVo = new ChapterVo();
-            BeanUtils.copyProperties(chapter,chapterVo);
+            BeanUtils.copyProperties(chapter, chapterVo);
             finalChapterVos.add(chapterVo);
 
             //填充课时vo对象
@@ -61,7 +62,7 @@ public class EduChapterServiceImpl extends ServiceImpl<EduChapterMapper, EduChap
 
                 if (chapter.getId().equals(video.getChapterId())){
                     VideoVo videoVo = new VideoVo();
-                    BeanUtils.copyProperties(video,videoVo);
+                    BeanUtils.copyProperties(video, videoVo);
                     finalVideoVos.add(videoVo);
                 }
             }
@@ -72,4 +73,23 @@ public class EduChapterServiceImpl extends ServiceImpl<EduChapterMapper, EduChap
         return finalChapterVos;
 
     }
+
+    //删除章节的方法
+    @Override
+    public boolean deleteChapter(String chapterId) {
+        //根据chapter章节id 查询查询小节表，如果查询有数据，则不删除
+        QueryWrapper<EduVideo> wrapper = new QueryWrapper<>();
+        wrapper.eq("chapter_id", chapterId);
+        int count = eduVideoService.count(wrapper);
+        //判断
+        if (count > 0){
+            //能查询出来小节，不进行删除
+            throw new CharException(20001,"还有小节数据，不能删除");
+        }else {
+            //不能查询出小节，进行删除
+            int delete = baseMapper.deleteById(chapterId);
+            return delete>0;
+        }
+    }
+
 }

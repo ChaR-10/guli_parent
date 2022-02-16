@@ -2,6 +2,7 @@ package com.charlie.eduservice.controller;
 
 
 import com.charlie.commonutils.R;
+import com.charlie.eduservice.entity.EduChapter;
 import com.charlie.eduservice.entity.vo.ChapterVo;
 import com.charlie.eduservice.service.EduChapterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,40 @@ public class EduChapterController {
 
         return R.ok().data("allChapterVideo",list);
     }
+
+    //添加章节
+    @PostMapping("addChapter")
+    public R addChapter(@RequestBody EduChapter eduChapter){
+        eduChapterService.save(eduChapter);
+        return R.ok();
+    }
+
+    //根据章节id查询
+    @GetMapping("getChapter/{chapterId}")
+    public R getChapter(@PathVariable String chapterId){
+        EduChapter eduChapter = eduChapterService.getById(chapterId);
+        return R.ok().data("chapter",eduChapter);
+    }
+
+    //修改章节
+    @PostMapping("updateChapter")
+    public R updateChapter(@RequestBody EduChapter eduChapter){
+        eduChapterService.updateById(eduChapter);
+        return R.ok();
+    }
+
+    //删除章节
+    @DeleteMapping("deleteById/{chapterId}")
+    public R deleteById(@PathVariable String chapterId){
+        boolean flag = eduChapterService.deleteChapter(chapterId);
+        if (flag){
+            return R.ok();
+        }else {
+            return R.error();
+        }
+
+    }
+
 
 }
 
