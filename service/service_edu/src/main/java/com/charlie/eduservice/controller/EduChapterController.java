@@ -5,6 +5,7 @@ import com.charlie.commonutils.R;
 import com.charlie.eduservice.entity.EduChapter;
 import com.charlie.eduservice.entity.vo.ChapterVo;
 import com.charlie.eduservice.service.EduChapterService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +19,7 @@ import java.util.List;
  * @author ChaR
  * @since 2022-02-13
  */
+@Api(tags="章节管理")
 @RestController
 @RequestMapping("/eduService/chapter")
 @CrossOrigin //解决跨域问题

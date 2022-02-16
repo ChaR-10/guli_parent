@@ -3,6 +3,7 @@ package com.charlie.eduservice.service.impl;
 import com.charlie.eduservice.entity.EduCourse;
 import com.charlie.eduservice.entity.EduCourseDescription;
 import com.charlie.eduservice.entity.vo.CourseInfoForm;
+import com.charlie.eduservice.entity.vo.CoursePublishVo;
 import com.charlie.eduservice.mapper.EduCourseMapper;
 import com.charlie.eduservice.service.EduCourseDescriptionService;
 import com.charlie.eduservice.service.EduCourseService;
@@ -85,5 +86,12 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         eduCourseDescription.setDescription(courseInfoForm.getDescription());
         eduCourseDescription.setId(courseInfoForm.getId());
         eduCourseDescriptionService.updateById(eduCourseDescription);
+    }
+
+    @Override
+    public CoursePublishVo getPublishCourseInfo(String courseId) {
+        // 调用mapper
+        CoursePublishVo vo = baseMapper.getPublishCourseInfo(courseId);
+        return vo;
     }
 }

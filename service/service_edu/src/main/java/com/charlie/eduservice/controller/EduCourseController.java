@@ -3,7 +3,11 @@ package com.charlie.eduservice.controller;
 
 import com.charlie.commonutils.R;
 import com.charlie.eduservice.entity.vo.CourseInfoForm;
+import com.charlie.eduservice.entity.vo.CoursePublishVo;
 import com.charlie.eduservice.service.EduCourseService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
  * @author ChaR
  * @since 2022-02-13
  */
+@Api(tags="课程管理")
 @RestController
 @RequestMapping("/eduService/course")
 @CrossOrigin //解决跨域问题
@@ -22,6 +27,9 @@ public class EduCourseController {
 
     @Autowired
     private EduCourseService eduCourseService;
+
+    @Autowired
+    private EduCourseService courseService;
 
     //添加课程基本信息方法
     @PostMapping("/addCourseInfo")
@@ -45,6 +53,16 @@ public class EduCourseController {
         return R.ok();
     }
 
+
+    @ApiOperation("获取课程发布信息")
+    @GetMapping("getPublishCourseInfo/{courseId}")
+    public R getPublishCourseInfo(
+            @ApiParam(name = "courseId",value = "课程Id",required = true)
+            @PathVariable String courseId
+    ){
+        CoursePublishVo publishVo = courseService.getPublishCourseInfo(courseId);
+        return R.ok().data("publishInfo",publishVo);
+    }
 
 }
 

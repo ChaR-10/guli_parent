@@ -4,6 +4,7 @@ package com.charlie.eduservice.controller;
 import com.charlie.commonutils.R;
 import com.charlie.eduservice.entity.EduVideo;
 import com.charlie.eduservice.service.EduVideoService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
  * @author ChaR
  * @since 2022-02-13
  */
+@Api(tags="小节管理")
 @RestController
 @RequestMapping("/eduService/video")
 @CrossOrigin //解决跨域问题

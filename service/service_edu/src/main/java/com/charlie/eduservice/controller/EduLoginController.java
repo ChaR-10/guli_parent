@@ -1,12 +1,14 @@
 package com.charlie.eduservice.controller;
 
 import com.charlie.commonutils.R;
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.*;
 
 /**
  * @Author: ChaR
  * @Date: 2022/2/7 22:16
  */
+@Api(tags="登录管理")
 @RestController
 @CrossOrigin //解决跨域
 @RequestMapping("/eduService/user")
