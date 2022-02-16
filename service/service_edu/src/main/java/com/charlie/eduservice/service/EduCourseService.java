@@ -13,6 +13,7 @@ import com.charlie.eduservice.entity.vo.CoursePublishVo;
  * @author ChaR
  * @since 2022-02-13
  */
+
 public interface EduCourseService extends IService<EduCourse> {
 
     //添加课程基本信息方法
@@ -25,4 +26,6 @@ public interface EduCourseService extends IService<EduCourse> {
     void updateCourseInfo(CourseInfoForm courseInfoForm);
 
     CoursePublishVo getPublishCourseInfo(String courseId);
+
+    void removeCourse(String courseId);
 }

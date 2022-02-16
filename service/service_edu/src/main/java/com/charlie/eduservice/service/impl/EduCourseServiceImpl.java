@@ -1,13 +1,16 @@
 package com.charlie.eduservice.service.impl;
 
+import com.charlie.eduservice.controller.EduTeacherController;
 import com.charlie.eduservice.entity.EduCourse;
 import com.charlie.eduservice.entity.EduCourseDescription;
 import com.charlie.eduservice.entity.vo.CourseInfoForm;
 import com.charlie.eduservice.entity.vo.CoursePublishVo;
 import com.charlie.eduservice.mapper.EduCourseMapper;
+import com.charlie.eduservice.service.EduChapterService;
 import com.charlie.eduservice.service.EduCourseDescriptionService;
 import com.charlie.eduservice.service.EduCourseService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.charlie.eduservice.service.EduVideoService;
 import com.charlie.servicebase.exceptionHandler.CharException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +30,18 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
     //课程描述注入
     @Autowired
     private EduCourseDescriptionService eduCourseDescriptionService;
+
+    @Autowired
+    private EduChapterService chapterService;
+
+    @Autowired
+    private EduVideoService videoService;
+
+    @Autowired
+    private EduCourseDescriptionService descriptionService;
+
+    @Autowired
+    private EduCourseDescriptionService courseDescriptionService;
 
     @Override
     public String saveCourseInfo(CourseInfoForm courseInfoForm) {
@@ -93,5 +108,23 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         // 调用mapper
         CoursePublishVo vo = baseMapper.getPublishCourseInfo(courseId);
         return vo;
+    }
+
+    @Override
+    public void removeCourse(String courseId) {
+        //1 根据课程id删除小节
+        videoService.removeVideoByCourseId(courseId);
+
+        //2 根据课程id删除章节
+        chapterService.removeChapterByCourseId(courseId);
+
+        //3 根据课程id删除描述
+        courseDescriptionService.removeById(courseId);
+
+        //4 根据课程id删除课程本身
+        int result = baseMapper.deleteById(courseId);
+        if (result == 0) {
+            throw new CharException(20001, "删除失败");
+        }
     }
 }

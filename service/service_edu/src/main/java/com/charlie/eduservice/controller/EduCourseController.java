@@ -1,16 +1,22 @@
 package com.charlie.eduservice.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.charlie.commonutils.R;
 import com.charlie.eduservice.entity.EduCourse;
 import com.charlie.eduservice.entity.vo.CourseInfoForm;
 import com.charlie.eduservice.entity.vo.CoursePublishVo;
+import com.charlie.eduservice.entity.vo.CourseQuery;
 import com.charlie.eduservice.service.EduCourseService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * <p>
@@ -81,6 +87,77 @@ public class EduCourseController {
             return R.error().message("课程发布失败");
         }
     }
+
+    @ApiOperation(value = "课程列表")
+    @GetMapping("getCourseList")
+    public R getCourseList(){
+        List<EduCourse> list = courseService.list(null);
+        return R.ok().data("list",list);
+    }
+
+    @ApiOperation(value = "分页查询课程列表")
+    @PostMapping("pageListCourse/{current}/{limit}")
+    public R pageListCourse(
+            @ApiParam(name = "current", value = "当前页码", required = true)
+            @PathVariable Long current,
+            @ApiParam(name = "limit", value = "每页记录数", required = true)
+            @PathVariable Long limit){
+        //创建page对象
+        Page<EduCourse> pageCourse =new Page<>(current,limit);
+
+        //调用方法查询
+        courseService.page(pageCourse,null);
+
+        long total = pageCourse.getTotal();
+        List<EduCourse> courseList = pageCourse.getRecords();
+
+        return R.ok().data("total",total).data("rows",courseList);
+    }
+
+    //TODO 带条件的分页查询
+    @ApiOperation(value = "条件查询带分页课程列表")
+    @PostMapping("pageCourseCondition/{current}/{limit}")
+    public R pageCourseCondition(
+            @ApiParam(name = "current", value = "当前页码", required = true)
+            @PathVariable Long current,
+            @ApiParam(name = "limit", value = "每页记录数", required = true)
+            @PathVariable Long limit,
+            @RequestBody(required = false) CourseQuery courseQuery){
+        //创建page对象
+        Page<EduCourse> pageCourse =new Page<>(current,limit);
+
+        //构建条件
+        QueryWrapper<EduCourse> wrapper = new QueryWrapper<>();
+
+        //组合条件查询
+        String title = courseQuery.getTitle();
+        String status = courseQuery.getStatus();
+
+        //判断是否为空，不为空就拼接查询
+        if (!StringUtils.isEmpty(title)) {
+            wrapper.like("title",title);
+        }
+        if (!StringUtils.isEmpty(status)) {
+            wrapper.eq("status",status);
+        }
+
+        //调用方法查询
+        courseService.page(pageCourse,wrapper);
+
+        long total = pageCourse.getTotal();
+        List<EduCourse> courseList = pageCourse.getRecords();
+
+        return R.ok().data("total",total).data("rows",courseList);
+    }
+
+    @ApiOperation(value = "删除课程")
+    @DeleteMapping("deleteCourse/{courseId}")
+    public R deleteCourse(@PathVariable String courseId){
+        courseService.removeCourse(courseId);
+        return R.ok();
+    }
+
+
 
 }
 
