@@ -14,7 +14,7 @@ import java.util.List;
  * @Date: 2022/2/20 14:23
  */
 @Component
-@FeignClient("service-vod")//指定调用的服务名，前提要注册到nacos注册中心中
+@FeignClient(value = "service-vod", fallback = VodFileDegradeFeignClient.class)//指定调用的服务名，前提要注册到nacos注册中心中
 public interface VodClient {
 
     //根据视频id删除阿里云视频

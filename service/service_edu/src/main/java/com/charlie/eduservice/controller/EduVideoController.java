@@ -5,6 +5,7 @@ import com.charlie.commonutils.R;
 import com.charlie.eduservice.client.VodClient;
 import com.charlie.eduservice.entity.EduVideo;
 import com.charlie.eduservice.service.EduVideoService;
+import com.charlie.servicebase.exceptionHandler.CharException;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -48,7 +49,11 @@ public class EduVideoController {
         //判断小节里面是否有视频id
         if(!StringUtils.isEmpty(videoSourceId)) {
             //根据视频id，远程调用实现视频删除
-            vodClient.removeAliyunVideoById(videoSourceId);
+            R result = vodClient.removeAliyunVideoById(videoSourceId);
+            if (result.getCode() == 20001){
+//                throw new CharException(20001, "删除视频失败，熔断器fallback...");
+                return R.error().message("删除视频失败，熔断器fallback...");
+            }
         }
 
 
