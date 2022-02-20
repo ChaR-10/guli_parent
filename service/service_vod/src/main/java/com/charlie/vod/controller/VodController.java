@@ -42,6 +42,13 @@ public class VodController {
         return R.ok();
     }
 
+    @ApiOperation(value = "删除多个阿里云视频")
+    @DeleteMapping("deleteBatch")
+    public R deleteBatch(@RequestParam("videoIdList") List videoIdList){
+        vodService.removeMoreAlyVideo(videoIdList);
+        return R.ok();
+    }
+
 
 }
 
