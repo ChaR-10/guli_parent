@@ -1,4 +1,4 @@
-package com.charlie.eduservice.config;
+package com.charlie.educms.config;
 
 import com.baomidou.mybatisplus.core.injector.ISqlInjector;
 import com.baomidou.mybatisplus.extension.injector.LogicSqlInjector;
@@ -11,11 +11,11 @@ import org.springframework.context.annotation.Profile;
 
 /**
  * @Author: ChaR
- * @Date: 2021/11/21 13:03
+ * @Date: 2022/2/24 21:49
  */
 @Configuration
-@MapperScan("com.charlie.eduservice.mapper")
-public class EduConfig {
+@MapperScan("com.charlie.educms.mapper")
+public class CmsConfig {
 
     @Bean
     public ISqlInjector sqlInjector() {
@@ -42,6 +42,5 @@ public class EduConfig {
     public PaginationInterceptor paginationInterceptor() {
         return new PaginationInterceptor();
     }
-
 
 }
