@@ -33,7 +33,7 @@ public class R {
         R r = new R();
         r.setSuccess(true);
         r.setCode(ResultCode.SUCCESS);
-        r.setMessage("成功。。。");
+        r.setMessage("成功");
         return r;
     }
 
