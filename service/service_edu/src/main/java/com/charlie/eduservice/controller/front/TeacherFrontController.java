@@ -12,6 +12,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -38,5 +39,20 @@ public class TeacherFrontController {
         //返回封装的数据
         return R.ok().data(map);
     }
+
+    @ApiOperation(value = "讲师详情功能")
+    @GetMapping("getTeacherFrontInfo/{teacherId}")
+    public R getTeacherFrontInfo(@PathVariable String teacherId) {
+        //根据讲师id 查询讲师基本信息
+        EduTeacher teacher = teacherService.getById(teacherId);
+
+        //根据讲师id 查询课程基本信息
+        QueryWrapper<EduCourse> wrapper = new QueryWrapper<>();
+        wrapper.eq("teacher_id",teacherId);
+        List<EduCourse> courseList = courseService.list(wrapper);
+
+        return R.ok().data("teacher",teacher).data("courseList",courseList);
+    }
+
 }
 
