@@ -1,8 +1,11 @@
 package com.charlie.eduservice.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.charlie.eduservice.controller.EduTeacherController;
 import com.charlie.eduservice.entity.EduCourse;
 import com.charlie.eduservice.entity.EduCourseDescription;
+import com.charlie.eduservice.entity.frontVo.CourseFrontVo;
 import com.charlie.eduservice.entity.vo.CourseInfoForm;
 import com.charlie.eduservice.entity.vo.CoursePublishVo;
 import com.charlie.eduservice.mapper.EduCourseMapper;
@@ -15,6 +18,10 @@ import com.charlie.servicebase.exceptionHandler.CharException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <p>
@@ -126,5 +133,37 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         if (result == 0) {
             throw new CharException(20001, "删除失败");
         }
+    }
+
+    @Override
+    public Map<String, Object> getCourseFrontList(Page<EduCourse> pageCourse, CourseFrontVo courseFrontVo) {
+        QueryWrapper<EduCourse> wrapper = new QueryWrapper<>();
+        if(!StringUtils.isEmpty(courseFrontVo.getSubjectParentId())){
+            wrapper.eq("subject_parent_id",courseFrontVo.getSubjectParentId());
+        }
+        if(!StringUtils.isEmpty(courseFrontVo.getSubjectId())){
+            wrapper.eq("subject_id",courseFrontVo.getSubjectId());
+        }
+        if(!StringUtils.isEmpty(courseFrontVo.getBuyCountSort())){
+            wrapper.orderByDesc("buy_count");
+        }
+        if(!StringUtils.isEmpty(courseFrontVo.getGmtCreateSort())){
+            wrapper.orderByDesc("gmt_create");
+        }
+        if(!StringUtils.isEmpty(courseFrontVo.getPriceSort())){
+            wrapper.orderByDesc("price");
+        }
+
+        baseMapper.selectPage(pageCourse,wrapper);
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("current",pageCourse.getCurrent());
+        map.put("records",pageCourse.getRecords());
+        map.put("pages",pageCourse.getPages());
+        map.put("size",pageCourse.getSize());
+        map.put("total",pageCourse.getTotal());
+        map.put("next",pageCourse.hasNext());
+        map.put("previous",pageCourse.hasPrevious());
+        return map;
     }
 }

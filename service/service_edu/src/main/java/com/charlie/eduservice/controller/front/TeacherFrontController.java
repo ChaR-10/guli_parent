@@ -19,7 +19,7 @@ import java.util.Map;
  * @Author: ChaR
  * @Date: 2022/3/1 22:29
  */
-@Api(tags = "讲师管理前端")
+@Api(tags = "【前台】讲师管理")
 @RestController
 @RequestMapping("/eduservice/teacherfront")
 @CrossOrigin

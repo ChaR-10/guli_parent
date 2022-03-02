@@ -20,7 +20,7 @@ import java.util.List;
  * @Author: ChaR
  * @Date: 2022/2/24 21:59
  */
-@Api(tags = "前台查询课程名师")
+@Api(tags = "【前台】查询课程名师")
 @RestController
 @RequestMapping("/eduservice/indexfront")
 @CrossOrigin
