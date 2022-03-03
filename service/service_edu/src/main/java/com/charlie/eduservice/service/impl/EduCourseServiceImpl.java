@@ -2,6 +2,7 @@ package com.charlie.eduservice.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.charlie.commonutils.vo.CourseWebVo;
 import com.charlie.eduservice.controller.EduTeacherController;
 import com.charlie.eduservice.entity.EduCourse;
 import com.charlie.eduservice.entity.EduCourseDescription;
@@ -165,5 +166,11 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         map.put("next",pageCourse.hasNext());
         map.put("previous",pageCourse.hasPrevious());
         return map;
+    }
+
+    @Override
+    public CourseWebVo getBaseCourseInfo(String courseId) {
+        CourseWebVo courseWebVo = baseMapper.selectInfoWebById(courseId);
+        return courseWebVo;
     }
 }

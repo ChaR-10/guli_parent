@@ -1,6 +1,7 @@
 package com.charlie.eduservice.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.charlie.commonutils.vo.CourseWebVo;
 import com.charlie.eduservice.entity.EduCourse;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.charlie.eduservice.entity.frontVo.CourseFrontVo;
@@ -34,4 +35,7 @@ public interface EduCourseService extends IService<EduCourse> {
     void removeCourse(String courseId);
 
     Map<String, Object> getCourseFrontList(Page<EduCourse> pageCourse, CourseFrontVo courseFrontVo);
+
+    //前台根据课程id，查询课程基础信息
+    CourseWebVo getBaseCourseInfo(String courseId);
 }
