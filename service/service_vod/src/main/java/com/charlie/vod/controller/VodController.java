@@ -49,6 +49,20 @@ public class VodController {
         return R.ok();
     }
 
+    //根据视频id获取视频凭证
+    @GetMapping("/getPlayAuth/{id}")
+    public R getPlayAuth(@PathVariable String id){
+        try {
+            String playAuth = vodService.getPlayAuth(id);
+            return R.ok().data("playAuth", playAuth);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new CharException(20001, "获取视频凭证失败");
+        }
+
+    }
+
+
 
 }
 
