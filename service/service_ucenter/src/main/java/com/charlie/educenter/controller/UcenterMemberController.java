@@ -5,9 +5,11 @@ import com.charlie.commonutils.JwtUtils;
 import com.charlie.commonutils.R;
 import com.charlie.educenter.entity.UcenterMember;
 import com.charlie.educenter.entity.vo.RegisterVo;
+import com.charlie.educenter.entity.vo.UcenterMemberVo;
 import com.charlie.educenter.service.UcenterMemberService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -55,6 +57,16 @@ public class UcenterMemberController {
         //查询数据库根据用户id获取用户信息
         UcenterMember member = memberService.getById(memberId);
         return R.ok().data("userInfo", member);
+    }
+
+    //根据用户id查询用户信息
+    @PostMapping("/getMemberInfoById/{memberId}")
+    public UcenterMemberVo getMemberInfoById(@PathVariable String memberId){
+        UcenterMember member = memberService.getById(memberId);
+        UcenterMemberVo memberVo = new UcenterMemberVo();
+        BeanUtils.copyProperties(member, memberVo);
+
+        return memberVo;
     }
 
 }
