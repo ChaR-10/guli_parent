@@ -69,6 +69,14 @@ public class UcenterMemberController {
         return memberVo;
     }
 
+    @ApiOperation(value = "查询某一天注册人数")
+    @GetMapping("countRegister/{day}")
+    public R countRegister(@PathVariable String day) {
+        Integer count = memberService.countRegisterDay(day);
+        return R.ok().data("countRegister",count);
+    }
+
+
 }
 
 

@@ -20,6 +20,7 @@
         <module>service_sms</module>
         <module>service_ucenter</module>
         <module>service_order</module>
+        <module>service_statistics</module>
     </modules>
 
     <dependencies>
@@ -137,6 +138,18 @@
         </dependency>
 
     </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>false</filtering>
+            </resource>
+        </resources>
+    </build>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
