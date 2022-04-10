@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @Api(tags="登录管理")
 @RestController
-@CrossOrigin //解决跨域
+//@CrossOrigin //解决跨域
 @RequestMapping("/eduService/user")
 public class EduLoginController {
 
