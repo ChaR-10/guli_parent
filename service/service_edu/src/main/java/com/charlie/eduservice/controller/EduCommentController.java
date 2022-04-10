@@ -27,7 +27,7 @@ import java.util.List;
  * @since 2022-03-13
  */
 @RestController
-@RequestMapping("/eduservice/edu-comment")
+@RequestMapping("/eduService/edu-comment")
 //@CrossOrigin
 public class EduCommentController {
 

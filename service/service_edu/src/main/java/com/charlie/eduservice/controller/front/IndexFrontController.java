@@ -22,8 +22,8 @@ import java.util.List;
  */
 @Api(tags = "【前台】查询课程名师")
 @RestController
-@RequestMapping("/eduservice/indexfront")
-@CrossOrigin
+@RequestMapping("/eduService/indexfront")
+//@CrossOrigin
 public class IndexFrontController {
 
     @Autowired

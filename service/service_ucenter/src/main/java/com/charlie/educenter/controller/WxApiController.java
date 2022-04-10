@@ -23,7 +23,7 @@ import java.util.HashMap;
  * @Date: 2022/2/28 22:38
  */
 @Api(tags = "前端微信扫码登录")
-@CrossOrigin
+//@CrossOrigin
 @Controller  //只是请求地址，不需要返回数据
 @RequestMapping("/api/ucenter/wx")
 public class WxApiController {

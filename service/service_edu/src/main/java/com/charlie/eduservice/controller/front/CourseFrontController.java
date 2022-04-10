@@ -26,8 +26,8 @@ import java.util.Map;
  */
 
 @RestController
-@RequestMapping("/eduservice/courseFront")
-@CrossOrigin
+@RequestMapping("/eduService/courseFront")
+//@CrossOrigin
 @Api(tags = "【前台】课程管理")
 public class CourseFrontController {
 

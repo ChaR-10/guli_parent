@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
  * @Author: ChaR
  * @Date: 2022/2/27 14:56
  */
-@CrossOrigin //跨域
+//@CrossOrigin //跨域
 @RestController
 @RequestMapping("/api/sms")
 @Api(tags = "短信管理")

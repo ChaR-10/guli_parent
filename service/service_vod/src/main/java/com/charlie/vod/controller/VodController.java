@@ -20,7 +20,7 @@ import java.util.List;
  * @Date: 2022/2/19 19:53
  */
 @RestController
-@CrossOrigin
+//@CrossOrigin
 @RequestMapping("/eduVod/video")
 public class VodController {
 

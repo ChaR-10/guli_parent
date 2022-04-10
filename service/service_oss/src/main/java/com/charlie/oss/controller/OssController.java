@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 //@Api(description="阿里云文件管理") 已过时
 @Api(tags="阿里云文件管理")
-@CrossOrigin //跨域
+//@CrossOrigin //跨域
 @RestController
 @RequestMapping("/edu_oss/fileoss")
 public class OssController {
