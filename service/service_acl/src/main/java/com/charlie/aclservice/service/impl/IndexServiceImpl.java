@@ -10,7 +10,6 @@ import com.charlie.aclservice.service.PermissionService;
 import com.charlie.aclservice.service.RoleService;
 import com.charlie.aclservice.service.UserService;
 import com.charlie.servicebase.exceptionHandler.CharException;
-import netscape.javascript.JSUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
