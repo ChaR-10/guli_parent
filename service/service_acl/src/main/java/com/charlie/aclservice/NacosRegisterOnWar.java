@@ -1,12 +1,6 @@
-package com.charlie.eduservice;
+package com.charlie.aclservice;
 
-import java.lang.management.ManagementFactory;
-import java.util.Set;
-
-import javax.management.MBeanServer;
-import javax.management.ObjectName;
-import javax.management.Query;
-
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
@@ -15,14 +9,11 @@ import org.springframework.cloud.alibaba.nacos.registry.NacosAutoServiceRegistra
 import org.springframework.cloud.alibaba.nacos.registry.NacosRegistration;
 import org.springframework.stereotype.Component;
 
-
-/**
- * @Author: ChaR
- * @Date: 2022/4/14 14:43
- */
-
-
-import lombok.extern.slf4j.Slf4j;
+import javax.management.MBeanServer;
+import javax.management.ObjectName;
+import javax.management.Query;
+import java.lang.management.ManagementFactory;
+import java.util.Set;
 
 /**
  * 项目打包war情况下部署外部tomcat，需该方式注册nacos
